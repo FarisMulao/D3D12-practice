@@ -39,3 +39,25 @@
 
 # debug information files
 *.dwo
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+bin/
+obj/
+*.vcxproj.user
+*.vcxproj.filters
+
+# CMake
+build/
+out/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+!CMakeLists.txt
+
+# Markdown files
+*.md
