@@ -15,9 +15,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Source files
-file(GLOB_RECURSE SOURCES
-    "${CMAKE_SOURCE_DIR}/src/*.cpp"
-    "${CMAKE_SOURCE_DIR}/src/*.c"
+set(SOURCES
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/D3D12App.cpp
+    ${CMAKE_SOURCE_DIR}/src/D3DRenderer.cpp
+    ${CMAKE_SOURCE_DIR}/src/Win32Window.cpp
+    ${CMAKE_SOURCE_DIR}/src/ImGuiManager.cpp
 )
 
 # Header files (for IDE)
@@ -26,8 +29,25 @@ file(GLOB_RECURSE HEADERS
     "${CMAKE_SOURCE_DIR}/include/*.hpp"
 )
 
+# ImGui sources
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
+set(IMGUI_SOURCES
+    ${IMGUI_DIR}/imgui.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_tables.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_win32.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_dx12.cpp
+)
+
 # Create executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${IMGUI_SOURCES})
+
+# Include ImGui directories
+target_include_directories(${PROJECT_NAME} PRIVATE 
+    ${IMGUI_DIR}
+    ${IMGUI_DIR}/backends
+)
 
 # Copy shader files to output directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

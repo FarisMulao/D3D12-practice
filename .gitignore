@@ -61,3 +61,6 @@ CMakeFiles/
 
 # Markdown files
 *.md
+
+# External dependencies
+external/
